@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admin</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Smile Anume Club</title>
+    <style>
+      body,html{
+        margin: 0px;
+        padding:0px;
+        height: 100%;
+        background-image: url('pexels-photo-747964.jpeg');
+      }
+      .box{
+        width:700px;
+        padding:40px;
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        background-color:white;
+        border-radius: 25px;
+      }
+      td{
+        padding:20px 30px;
+      }
+      input{
+          width:400px;
+      }
+      a{
+          text-decoration:none;
+      }
+    </style>
+</head>
+<body>
+        <form class="box">
+            <div class="form-group">
+                <label for="exampleFormControlInput1">ชื่อวิดีโอ</label>
+                <input type="text" class="form-control" id="video_name">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Categories</label>
+                <input type="text" class="form-control" id="categories">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Tags</label>
+                <input type="text" class="form-control" id="tags">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlFile1">ไฟล์รูปภาพ</label>
+                <input style="margin-bottom:10px;" type="file" class="form-control-file" id="pic_upload">
+                <div id="pic_progress"></div>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlFile1">ไฟล์วิดีโอ</label>
+                <input style="margin-bottom:10px;" type="file" class="form-control-file" id="video_upload">
+                <div id="video_progress"></div>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">รายละเอียดวิดีโอ</label>
+                <textarea class="form-control" id="description" rows="3"></textarea>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="insert();">Upload</button>
+        </form>
+
+        <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
+        <script>
+            var config = {
+                apiKey: "AIzaSyAyCOW6vllAEA8sa3dFsQd_ZhJG-AG_0Zc",
+                authDomain: "realtimecomment-374f5.firebaseapp.com",
+                databaseURL: "https://realtimecomment-374f5.firebaseio.com",
+                projectId: "realtimecomment-374f5",
+                storageBucket: "realtimecomment-374f5.appspot.com",
+                messagingSenderId: "473627611221"
+            };
+            firebase.initializeApp(config);
+
+            var pic_upload=document.getElementById("pic_upload");
+            var video_upload=document.getElementById("video_upload");
+            var pic_progress=document.getElementById("pic_progress");
+            var video_progress=document.getElementById("video_progress");
+            var count=1,c;
+            getcardnumber();
+
+            pic_upload.addEventListener('change',function(e){
+                var file=e.target.files[0];
+                var storageRef = firebase.storage().ref(count+'/'+document.getElementById("video_name").value+"_pic");
+                var task=storageRef.put(file);
+                task.on('state_changed',
+
+                    function progress(snapshot){
+                        var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
+                        pic_progress.innerHTML="<div class='progress'><div class='progress-bar progress-bar-striped progress-bar-animated' role='progressbar' aria-valuenow='"+percentage+"' aria-valuemin='0' aria-valuemax='100' id='UploadValue' style='width:"+percentage+"%;'></div></div>";
+                        if(percentage>=100)
+                        {
+                            pic_progress.innerHTML="Upload Success";
+                        }
+                    },
+
+                    function success(){
+
+                    },
+
+                    function error(){
+
+                    }
+                );
+            });
+
+            video_upload.addEventListener('change',function(e){
+                var file=e.target.files[0];
+                var storageRef = firebase.storage().ref(count+'/'+document.getElementById("video_name").value+"_video");
+                var task=storageRef.put(file);
+                task.on('state_changed',
+
+                    function progress(snapshot){
+                        var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
+                        video_progress.innerHTML="<div class='progress'><div class='progress-bar progress-bar-striped progress-bar-animated' role='progressbar' aria-valuenow='"+percentage+"' aria-valuemin='0' aria-valuemax='100' id='UploadValue' style='width:"+percentage+"%;'></div></div>";
+                        if(percentage>=100)
+                        {
+                            video_progress.innerHTML="Upload Success";
+                        }
+                    },
+
+                    function success(){
+
+                    },
+
+                    function error(){
+
+                    }
+                );
+            });
+
+            function insert(){
+
+                var categories=document.getElementById("categories").value;
+                var tags=document.getElementById("tags").value;
+                categories=categories.split("+");
+                tags=tags.split("+");
+
+                var firebaseRef=firebase.database().ref("card");
+                    firebaseRef.child("card_"+c+"/Cardname").set(document.getElementById("video_name").value);
+                    firebaseRef.child("card_"+c+"/Cardnumber").set(c);
+                    firebaseRef.child("card_"+c+"/Comment").set("-");
+                    firebaseRef.child("card_"+c+"/Description").set(document.getElementById("description").value);
+                    firebaseRef.child("card_"+c+"/Views").set("0");
+                    firebaseRef.child("card_"+c+"/Tags").set("");
+                    firebaseRef.child("card_"+c+"/Categories").set("");
+                    for(var i=0;i<categories.length;i++)
+                    {
+                        firebaseRef.child("card_"+c+"/Categories").child(categories[i]).set("");
+                    }
+                    for(var i=0;i<tags.length;i++)
+                    {
+                        firebaseRef.child("card_"+c+"/Tags").child(tags[i]).set("");
+                    }
+                var storageRef=firebase.storage().ref('card_'+c);
+                    storageRef.child(document.getElementById("video_name").value+"_pic").getDownloadURL().then(function(url) {
+                        firebaseRef.child("card_"+c+"/PictureLocation").set(url);
+                    }).catch(function(error) {
+                        console.log("Set Image Location Error");
+                    });
+                    storageRef.child(document.getElementById("video_name").value+"_video").getDownloadURL().then(function(url) {
+                        firebaseRef.child("card_"+c+"/VideoLocation").set(url);
+                    }).catch(function(error) {
+                        console.log("Set Video Location Error");
+                    });
+            }
+
+            function getcardnumber(){
+                var firebaseRef=firebase.database().ref("card");
+                firebaseRef.once('value',function(dataSnapshot){
+                    dataSnapshot.forEach(function(childSnapshot) {
+                        var childKey = childSnapshot.key;
+                        var childData = childSnapshot.val();
+                        count++;
+                    });
+                    c=count;
+                    c=c.toString();
+                    /*set number of card*/
+                    count=count.toString();
+                    var zero="";
+                    for(var i=0;i<5-count.length;i++)
+                    {
+                        zero+="0";
+                    }
+                    c=zero+c;
+                    count="card_"+zero+count+"/"+document.getElementById("video_name").value;
+                });
+            }
+        </script>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
+</body>
+</html>

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/watch.css">
+    <title>Smile Anime Club</title>
+    <style>
+      .head{
+        color:  black;
+        font-size :30px;
+      }
+      .menubar{
+        float:left;
+        height:100%; 
+        border:1px solid red; 
+        margin:0px 20px; 
+        width:300px;
+      }
+      footer{
+          background-color: black;
+          color:wheat;
+          padding:20px;
+      }
+       .menu{
+            list-style-type: none;
+            margin-top: 50px;
+            padding: 0;
+            width: 15%;
+            background-color: #f1f1f1;
+            position: fixed;
+            height: 100%;
+            overflow: auto;
+            width:200px;
+        }
+            
+        fieldset{
+            width:500px;
+        }
+        .videoblock{
+            /*margin-left: 13%;*/
+            margin-bottom:10px;
+            height:100px;
+        }
+        .box{
+            float: left;
+            width: 33.33%;
+            padding: 50px; 
+            background-color: #F5A9F2; 
+            border:solid 1px white;
+        }
+        textarea{
+            width:80%;
+        }
+        .videoimage{
+            width:168px;
+            height:94px;
+        }
+        .block-ellipsis {
+            display: block;
+            display: -webkit-box;
+            height: 34px;
+            font-size: 16px;
+            line-height: 1;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+<body>
+
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+    var config = {
+        apiKey: "AIzaSyAyCOW6vllAEA8sa3dFsQd_ZhJG-AG_0Zc",
+        authDomain: "realtimecomment-374f5.firebaseapp.com",
+        databaseURL: "https://realtimecomment-374f5.firebaseio.com",
+        projectId: "realtimecomment-374f5",
+        storageBucket: "realtimecomment-374f5.appspot.com",
+        messagingSenderId: "473627611221"
+    };
+    firebase.initializeApp(config);
+    </script>
+
+    <div id="id01" class="modal">
+        <div class="modal-content animate">
+            <div class="form-group" style="margin:5% 15% 0% 15%">
+              <label>Username</label>
+              <input id="username" class="form-control" placeholder="Enter username or your email">
+            </div>
+            <div class="form-group" style="margin:5% 15% 0% 15%">
+              <label for="exampleInputPassword1">Password</label>
+              <input type="password" id="passwords" class="form-control" placeholder="Password">
+            </div>
+            <div id="SigninError" style="margin:5% 15% 0% 15%">
+  
+            </div>
+            <button class="btn btn-primary" style="margin:5% 15% 10% 15%" onclick="signin();">Submit</button>
+          </div>
+    </div>
+  
+    <div class="ProfilePicture" id="ProfilePicture">
+        <p>วีรภัทร รื่นเริงดี</p>
+    </div>
+  
+    <nav class="navbar navbar-expand-lg navbar-light bg-info fixed-top">
+        <a class="navbar-brand" href="/">Smile Anime Club</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/" style="text-align: center;">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/registration" tabindex="-1" aria-disabled="true" style="text-align: center;">สมัครสมาชิก</a>
+            </li>
+          </ul>
+          <span class="navbar" id="pic_usr"></span>
+          <span style="padding-right:20px;" id="loginstatus"><button class='nav nav-link btn' onclick="block();" id="status" style="text-align: center; margin:auto;">เข้าสู่ระบบ</button></span>
+          <span style="padding-right: 20px;" id="logoutstatus"></span>
+          <form class="form-inline my-2 my-lg-0" action='/search' method="GET"> 
+            <input name="searchwords" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="margin: auto; width:60%; ">
+            <button name="nickname" value="wee" class="btn btn-danger my-2 my-sm-0" type="submit" style="margin: auto;">Search</button>
+          </form>
+        </div>
+    </nav>
+
+    <div class="container-fluid" style="margin-top:120px;">
+            <div class="col-sm-12 col-lg-8" style="float:left">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <video id="VideoPlayer" controls style="background-color: black; margin-right:3%; "  loop preload="metadata"></video>
+                </div>
+                <p id="VideoName" style="margin-top: 5%;"></p>
+                <p id="views"></p>
+                <hr>
+                <p>คลิปใหม่ๆสนุกๆ อัปเดตให้ชมกันทุกสัปดาห์ อย่าลืมติดตามกันด้วยนะครับ ^_^ </p>
+                <!--<p id="detail"></p>
+                <button type="button" class="btn btn-link" onclick="showdetail()" id="#wee">แสดงเพิ่มเติม</button>-->
+                <hr>
+            </div>
+            <div class="col-sm-12 col-lg-4" style="float: right;">
+                <div style="float:left; width:100%; margin-bottom:10px;">
+                    วิดีโอแนะนำสำหรับคุณ
+                </div>
+                <div id="recommend1" style="float:left; width:100%; margin-bottom:10px;">
+                   
+                </div>
+                <div id="recommend2" style="float:left; width:100%; margin-bottom:10px;">
+                    
+                </div>
+                <div id="recommend3" style="float:left; width:100%; margin-bottom:10px;">
+                   
+                </div>
+                <div id="recommend4" style="float:left; width:100%; margin-bottom:10px;">
+                   
+                </div>
+                <div id="recommend5" style="float:left; width:100%; margin-bottom:10px;">
+                   
+                </div>
+            </div>
+         
+        <div class="col-lg-8" style="float:left;">
+            <div style='float: left; width:100%;'>
+                <div style='float:left; width:100%;' id="CommentInput">
+                    <span id='cp'></span>
+                        <textarea id='comment' rows='3'></textarea>
+                        <button class='btn btn-primary' id='send' style='float:right; margin-right:10%;' onclick='add()'>แสดงความคิดเห็น</button>
+                </div>
+                <hr style='float:left; width:100%;'>
+            </div>
+            <span id="showcomment"></span>
+        </div>
+    </div>
+    
+    <script>
+        
+        var check=0;
+        var path=window.location.pathname;
+        var key;
+    
+        var modal = document.getElementById('id01'); // close log-in pop-up
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+              modal.style.display = "none";
+            }
+        }
+
+        function block(){
+          document.getElementById("SigninError").innerHTML="";
+          document.getElementById('id01').style.display="block";
+        }
+
+        var tagsarray=new Array();
+        var namearray=new Array();
+        var viewsarray=new Array();
+        var picturearray=new Array();
+        var videoarray=new Array();
+        var patharray=new Array();
+        var tags,video;
+
+        var firebaseRef=firebase.database().ref("card");
+        firebaseRef.once('value',function(dataSnapshot){
+          dataSnapshot.forEach(function(childSnapshot) {
+            var childKey = childSnapshot.key;
+            var childData = childSnapshot.val();
+            var number="/watch/"+parseInt(childData.Cardnumber);
+            tagsarray.push(childData.Tags);
+            namearray.push(childData.Cardname);
+            viewsarray.push(childData.Views);
+            picturearray.push(childData.PictureLocation);
+            videoarray.push(childData.VideoLocation);
+            patharray.push(number);
+            if(number==path)
+            {
+                key=childKey;
+                tags=childData.Tags;
+                video=childData.VideoLocation;
+                var text="<source src='"+childData.VideoLocation+"' type='video/mp4'>";
+                document.getElementById("VideoPlayer").innerHTML=text;
+                var n=parseInt(childData.Views)+1;
+                var fr=firebase.database().ref("card").child(childKey);
+                fr.child("Views").set(n.toString()+"  views");
+                document.getElementById("views").innerHTML=n.toString()+"  views";
+                document.getElementById("VideoName").innerHTML="<b>"+childData.Cardname+"</b>";
+                var comment_pic=getCookie("username");
+                getimage(comment_pic,"cp")
+            }
+          });
+          setrecommendvideo(tagsarray,namearray,viewsarray,picturearray,videoarray,patharray,tags,video);
+        });
+
+        var firebaseRef2=firebase.database().ref("card");
+        firebaseRef2.on('value',function(dataSnapshot){
+            var cm=new Array();
+          dataSnapshot.forEach(function(childSnapshot) {
+            var childKey = childSnapshot.key;
+            var childData = childSnapshot.val();
+            var number="/watch/"+parseInt(childData.Cardnumber);
+            if(number==path && childData.Comment!="-")
+            {
+                var comment,count=0,text=""; 
+                comment=childData.Comment;
+                var t=new Array(),countt=0;
+                for (var i in comment)
+                {
+                    var name="pic_usr"+i;
+                    getimage(comment[i].username,name);
+                    count++;
+                    t[countt]="<div class='form-group' style='float: left; width:100%;'>"+
+                        "<span id='"+name+"'></span>"+
+                        "<div style='float:left; width:75%;'>"+
+                            "<p><b>"+comment[i].username+"</b></p>"+
+                            "<p>"+comment[i].comment+"</p>"+
+                        "</div>"+
+                    "</div>";
+                    countt++;
+                }
+                for(var i=countt-1;i>=0;i--)
+                {
+                    text+=t[i];
+                }
+                text="<p>Comments"+" ("+count+") </p>"+text;
+                document.getElementById("showcomment").innerHTML=text;
+            }
+          });
+        });
+        
+        function showdetail(){    // แสดง description ของวิดีโอ
+            if(check==0)
+            {
+              var text;
+              text="ลองคิดถึงหนูได้ไหมถ้าพี่ยังไม่มีใคร<br> ขอถามที่หน่อยได้ไหมในใจมีหนูบ้างหรือยัง<br> เปิดใจให้หน่อยได้ไหมถ้าพี่ก็คิดเหมือนกัน<br> แค่เห็นตอนพี่ฉีกยิ้มหนูก็ละลายทั้งหัวใจ<br>";
+              document.getElementById("detail").innerHTML=text;
+              document.getElementById("#wee").innerHTML="แสดงน้อยลง";
+              check=1;
+            }
+            else{
+              var text="";
+              document.getElementById("detail").innerHTML=text;
+              document.getElementById("#wee").innerHTML="แสดงเพิ่มเติม";
+              check=0;
+            }
+        }
+
+        function add(){
+            var firebaseRef2=firebase.database().ref("card").child(key);
+            var fr=firebaseRef2.child("Comment");
+            fr.push({
+                    username:getCookie("username"),
+                    comment:document.getElementById("comment").value
+            });
+            document.getElementById("comment").value="";
+        }
+    
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+        function getimage(username,n){
+          var check=0;
+          var storageRef=firebase.storage().ref('UserImage');
+            storageRef.child(username).getDownloadURL().then(function(url) {
+              document.getElementById(n).innerHTML="<img onclick='UpdateProfile();' class='rounded-circle' src='"+url+"' alt='ดีโอแนะนำ' width='40px' height='40px' style='float:left; margin-right: 5%;'>"; 
+            }).catch(function(error) {
+              document.getElementById(n).innerHTML="<a href='https://www.youtube.com/watch?v=tMQiuB8t5qI'><img class='rounded-circle' alt='ดีโอแนะนำ' width='40px' height='40px' style='float:left; margin-right: 5%;' src='"+"https://firebasestorage.googleapis.com/v0/b/realtimecomment-374f5.appspot.com/o/UserImage%2Fnopictureuser.png?alt=media&token=eda77f88-6bc8-43e6-8fb5-ab3fee0fef62"+"'></a>";
+              document.getElementById("CommentInput").innerHTML="กรุณาเข้าสู่ระบบเพื่อแสดงความคิดเห็น"; 
+            });
+        }
+        var mouseon_count=0;
+        function showsample_on(link,id){
+            var x=document.getElementById(id);
+            if(mouseon_count==0)
+            {
+                x.innerHTML="<video muted style='float:left; display: block;' class='videoimage' autoplay >"+ 
+                            "<source src='"+link+"'>"+
+                        "</video>";
+                mouseon_count=1;
+            }
+        }
+        function showsample_out(link,id){
+            var x=document.getElementById(id);
+            x.innerHTML="<img style='float:left; display: block;' class='videoimage' src='"+link+"' >";
+            mouseon_count=0;
+        }
+        function setrecommendvideo(tagsarray,namearray,viewsarray,picturearray,videoarray,patharray,tags,video){
+            var count=0;
+            var nametop=new Array();
+            var viewstop=new Array();
+            var picturetop=new Array();
+            var videotop=new Array();
+            var pathtop=new Array();
+            for(var i=0;i<tagsarray.length;i++)
+            {
+                var check=0;
+                for(var j in tagsarray[i])
+                {
+                    for(var k in tags)
+                    {
+                        if(j==k)
+                        {
+                            check=1;
+                        }
+                    }
+                }
+                if(check==1)
+                {
+                    nametop.push(namearray[i]);
+                    viewstop.push(viewsarray[i]);
+                    picturetop.push(picturearray[i]);
+                    videotop.push(videoarray[i]);
+                    pathtop.push(patharray[i]);
+                }
+                check=0;
+            }
+          
+            for(var i=0;i<videotop.length;i++)
+            {
+                for(var j=i+1;j<videotop.length;j++)
+                {
+                    if(parseInt(viewstop[i])<parseInt(viewstop[j]))
+                    {
+                        var tempname=nametop[i];
+                        var tempviews=viewstop[i];
+                        var temppicture=picturetop[i];
+                        var tempvideo=videotop[i];
+                        var temppath=pathtop[i];
+
+                        nametop[i]=nametop[j];
+                        viewstop[i]=viewstop[j];
+                        picturetop[i]=picturetop[j];
+                        videotop[i]=videotop[j];
+                        pathtop[i]=pathtop[j];
+
+                        nametop[j]=tempname;
+                        viewstop[j]=tempviews;
+                        picturetop[j]=temppicture;
+                        videotop[j]=tempvideo;
+                        pathtop[j]=temppath;
+                    }
+                }
+            }
+
+            var text="";
+            for(var i=0;i<videotop.length;i++)
+            {
+                if(count<5 && (videotop[i]!=video))
+                {
+                    text+="<a style='text-decoration: none; color:black;' href='"+pathtop[i]+"' ><span  id='videoimage"+(count+1)+"'"+" ><img style='float:left; display: block;' class='videoimage' src='"+picturetop[i]+"' ></span>"+
+                    "<div id='videoname'"+(count+1)+" style='margin-left:190px; margin-right: 10px; margin-top:10px;' class='block-ellipsis'>"+
+                        nametop[i]+ 
+                    "</div>"+
+                    "<div style='margin-left:190px; margin-right: 10px; margin-top:3px; font-size: 12px;'>"+
+                       " Uploaded : Admin"+
+                    "</div>"+
+                    "<div id='videoviews' style='margin-left:190px; margin-right: 10px; margin-top:3px; font-size: 12px;'>"+
+                        parseInt(viewstop[i])+" views"+
+                    "</div></a>";
+                    document.getElementById("recommend"+(count+1)).innerHTML=text;
+                    count++;
+                }
+                text="";
+            }
+        }
+
+        function signin(){ // log-in
+            var firebaseRef=firebase.database().ref("User");
+            firebaseRef.once('value').then(function(snapshot) {
+              var check=0;
+              snapshot.forEach(function(childSnapshot) {
+              var childKey = childSnapshot.key;
+              var childData = childSnapshot.val();
+              if( (childData.username==document.getElementById("username").value || childData.email==document.getElementById("username").value ) && childData.passwords==document.getElementById("passwords").value)
+              {
+                document.cookie = "username" + "=" + childData.username+"; path=/";
+                document.getElementById("loginstatus").innerHTML="<a class='nav-link disabled' style='margin:auto; text-align:center;' href='#' onclick='block();' id='status'>"+childData.username+"</a>";
+                getimage2(childData.username);
+                document.getElementById('id01').style.display='none';
+                document.getElementById("logoutstatus").innerHTML="<button class='nav-link btn' style='margin:auto;' onclick='logout();'>ออกจากระบบ</button>";
+                check=1;
+                location.reload()
+              }
+            });
+              if(check==0)
+              {
+                document.getElementById("SigninError").innerHTML="เข้าสู่ระบบไม่สำเร็จ ชื่อผู้ใช้หรือรหัสผ่านผิดพลาด";
+              }
+              document.getElementById("username").value="";
+              document.getElementById("passwords").value="";
+          });
+        }
+
+        function getimage2(username){
+          var check=0;
+          var storageRef=firebase.storage().ref('UserImage');
+            storageRef.child(username).getDownloadURL().then(function(url) {
+              document.getElementById("pic_usr").innerHTML="<img style='margin:auto;' onclick='UpdateProfile();' class='userimage' src='"+url+"'>"; 
+            }).catch(function(error) {
+              document.getElementById("pic_usr").innerHTML="<a href='https://www.youtube.com/watch?v=tMQiuB8t5qI'><img class='userimage' src='"+"https://firebasestorage.googleapis.com/v0/b/realtimecomment-374f5.appspot.com/o/UserImage%2Fnopictureuser.png?alt=media&token=eda77f88-6bc8-43e6-8fb5-ab3fee0fef62"+"'></a>"; 
+            });
+        }
+
+        function logout(){
+          document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+          document.getElementById("pic_usr").innerHTML="";
+          document.getElementById("logoutstatus").innerHTML="";
+          document.getElementById("loginstatus").innerHTML="<button class='nav-link btn' onclick='block();' id='status' style='text-align: center; margin:auto;'>"+"เข้าสู่ระบบ"+"</button>";
+        }
+
+        var username=getCookie("username"); // cookie check log-in status
+        if(username!="")
+        {
+          getimage2(username)
+          document.getElementById("loginstatus").innerHTML="<a class='nav-link disabled' href='#' onclick='block();' id='status' style='margin:auto; text-align:center;'>"+username+"</a>";
+          document.getElementById("logoutstatus").innerHTML="<button class='nav-link btn' onclick='logout();' style='margin:auto;'>ออกจากระบบ</button>";
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

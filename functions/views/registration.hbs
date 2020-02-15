@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Smile Anume Club</title>
+    <style>
+      body,html{
+        margin: 0px;
+        padding:0px;
+        height: 100%;
+        background-image: url("pexels-photo-747964.jpeg");
+      }
+      .box{
+        width:700px;
+        padding:40px;
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        background-color:white;
+        border-radius: 25px;
+      }
+      td{
+        padding:20px 30px;
+      }
+      input{
+          width:400px;
+      }
+      a{
+          text-decoration:none;
+      }
+    </style>
+</head>
+<body>
+        <div class="box">
+            <fieldset>
+                <legend>Registration</legend>
+            <table>
+                <tr>
+                    <td>FirstName </td>
+                    <td><input type="text" id="firstname"></td>
+                </tr>
+                <tr>
+                    <td>Lastname </td>
+                    <td><input type="text" id="lastname" ></td>
+                </tr>
+                <tr>
+                    <td>Email </td>
+                    <td><input type="text" id="email"></td>
+                </tr>
+                <tr>
+                    <td>Username</td>
+                    <td><input type="text" id="username"></td>
+                </tr>
+                <tr>
+                    <td>Passwords  </td>
+                    <td><input type="password" id="passwords" placeholder="8-16 Character A-Z,a-z and any Symbol or Number"></td>
+                </tr>
+                <tr>
+                    <td>Image Profile</td>
+                    <td><input type="file" id="usr_img" onchange="upload();"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><button class="btn btn-primary" onclick="insert();">submit</button></a></td>
+                </tr>
+            </table>
+            </fieldset>   
+        </div>
+
+        <img src="" id="myimg">
+
+        <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
+        <script>
+            var config = {
+                apiKey: "AIzaSyAyCOW6vllAEA8sa3dFsQd_ZhJG-AG_0Zc",
+                authDomain: "realtimecomment-374f5.firebaseapp.com",
+                databaseURL: "https://realtimecomment-374f5.firebaseio.com",
+                projectId: "realtimecomment-374f5",
+                storageBucket: "realtimecomment-374f5.appspot.com",
+                messagingSenderId: "473627611221"
+            };
+            firebase.initializeApp(config);
+            
+            function insert(){
+                var firebaseRef=firebase.database().ref("User");
+                firebaseRef.push({
+                    firstname:document.getElementById("firstname").value,
+                    lastname:document.getElementById("lastname").value,
+                    email:document.getElementById("email").value,
+                    username:document.getElementById("username").value,
+                    passwords:document.getElementById("passwords").value
+                });
+            }
+
+            function upload(){
+                var x = document.getElementById("usr_img");
+                var txt = "";
+                var file;
+                if ('files' in x) {
+                    if (x.files.length == 0) {
+                         txt = "Select one or more files.";
+                    } else {
+                        for (var i = 0; i < x.files.length; i++) {
+                            file = x.files[i];
+                            if ('name' in file) {
+                                txt += file.name;
+                            }
+                        }
+                    }
+                }
+                var storageref=firebase.storage().ref('UserImage/'+document.getElementById("username").value); 
+                storageref.put(file);
+            }
+           /* var storageRef=firebase.storage().ref('UserImage');
+            storageRef.child('ดับเบิ้ลพลังงานไร้สี.jpg').getDownloadURL().then(function(url) {
+            var img = document.getElementById('myimg');
+            img.src = url;
+            }).catch(function(error) {
+            // Handle any errors
+            });*/
+        </script>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

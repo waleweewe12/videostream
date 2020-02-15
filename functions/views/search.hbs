@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/page.css">
+    <title>Smile Anime Club</title>
+</head>
+
+<body>
+
+    <div id="id01" class="modal">
+      <div class="modal-content animate">
+          <div class="form-group" style="margin:5% 15% 0% 15%">
+            <label>Username</label>
+            <input id="username" class="form-control" placeholder="Enter username or your email">
+          </div>
+          <div class="form-group" style="margin:5% 15% 0% 15%">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" id="passwords" class="form-control" placeholder="Password">
+          </div>
+          <div id="SigninError" style="margin:5% 15% 0% 15%">
+
+          </div>
+          <button class="btn btn-primary" style="margin:5% 15% 10% 15%" onclick="signin();">Submit</button>
+        </div>
+    </div>
+
+    <div class="ProfilePicture" id="ProfilePicture">
+      <p>วีรภัทร รื่นเริงดี</p>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-info fixed-top">
+        <a class="navbar-brand" href="/">Smile Anime Club</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/" style="text-align: center;">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/registration" tabindex="-1" aria-disabled="true" style="text-align: center;">สมัครสมาชิก</a>
+            </li>
+          </ul>
+          <span class="navbar" id="pic_usr"></span>
+          <span style="padding-right:20px;" id="loginstatus"><button class='nav nav-link btn' onclick="block();" id="status" style="text-align: center; margin:auto;">เข้าสู่ระบบ</button></span>
+          <span style="padding-right: 20px;" id="logoutstatus"></span>
+          <form action='/search' class="form-inline my-2 my-lg-0">
+            <input  name="searchwords" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="margin: auto; width:60%; ">
+            <button name="nickname" value="wee" class="btn btn-danger my-2 my-sm-0" type="submit" style="margin: auto;">Search</button>
+          </form>
+        </div>
+    </nav>
+    
+    <div class="jumbotron bg-dark" style="margin-top: 50px;">
+        <div class="container" style="padding-top:3%;">
+            <p class="display-4 text-white">Smile Anime Club</p>
+            <p class="text-white" style="font-size:20px;">ยินดีต้อนรับเข้าสู่เว็บไซต์ Smile Anime Club แหล่งรวมอนิเมะสนุกๆ อัพเดตเรื่องใหม่ทุกสัปดาห์!!</p>
+            <hr class="my-4 border-white">
+            <p class="text-white" style="font-size:20px; text-align: center;">มาแรงประจำสัปดาห์ </p>
+                <div id="carouselExampleIndicators" class="carousel slide " data-ride="carousel" style="background-color:black;">
+                    <ol class="carousel-indicators">
+                      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="row">
+                              <div class="col d-md-none d-lg-none" id="top_three1">
+                                
+                              </div>
+                                <div class="col d-none d-md-block d-lg-block" id="top1">
+                                    
+                                </div>
+                                <div class="col d-none d-md-block d-lg-block" id="top2">
+                                    
+                                </div>
+                                <div class="col d-none d-md-block d-lg-block" id="top3">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="row">
+                              <div class="col d-md-none d-lg-none" id="top_three2">
+                                
+                              </div>
+                                <div class="col d-none d-md-block d-lg-block" id="top4">
+                                    
+                                </div>
+                                <div class="col d-none d-md-block d-lg-block" id="top5">
+                                   
+                                </div>
+                                <div class="col d-none d-md-block d-lg-block" id="top6">
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="row">
+                              <div class="col d-md-none d-lg-none" id="top_three3">
+                                
+                              </div>
+                                <div class="col d-none d-md-block d-lg-block" id="top7">
+                                   
+                                </div>
+                                <div class="col d-none d-md-block d-lg-block" id="top8">
+                                   
+                                </div>
+                                <div class="col d-none d-md-block d-lg-block" id="top9">
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev" style="background-color:black; opacity:0.7;">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next" style="background-color:black; opacity:0.7;">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    </a>
+                </div>
+        </div>
+    </div>
+   
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Smile Anime Club</a></li>
+            <li class="breadcrumb-item" id="thissearch"></li>
+        </ol>
+      </nav>
+    </div>
+    
+    <div class="container" id="card"></div>
+
+    <div class="container" style="margin-top:60px;"> 
+        <nav aria-label="Page navigation example">
+            <ul class="pagination" id="pagecontrol">
+                
+            </ul>
+        </nav>
+    </div>
+    
+    <footer>
+       <p style="text-align: center; color:wheat;">smile69club.com</p>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
+
+    <script>
+        /*Start Set-Up Search*/
+        var x='{{searchwords}}';
+        var check=true;
+        var SearchArray = new Array();
+        var TempArray = new Array();
+        TempArray=x.split(" ");
+  
+        for(var i=0; i< TempArray.length ; i++)
+        {
+          if(TempArray[i]!="")
+          {
+            SearchArray.push(TempArray[i]);
+          }
+        }
+        
+        /*End Set-Up Search*/
+
+        var modal = document.getElementById('id01'); // close log-in pop-up
+ 
+        window.onclick = function(event) {
+            if (event.target == modal) {
+              modal.style.display = "none";
+            }
+        }
+
+        function block(){
+          document.getElementById("SigninError").innerHTML="";
+          document.getElementById('id01').style.display="block";
+        }
+
+        var config = {  /*set up firebase*/
+          apiKey: "AIzaSyAyCOW6vllAEA8sa3dFsQd_ZhJG-AG_0Zc",
+          authDomain: "realtimecomment-374f5.firebaseapp.com",
+          databaseURL: "https://realtimecomment-374f5.firebaseio.com",
+          projectId: "realtimecomment-374f5",
+          storageBucket: "realtimecomment-374f5.appspot.com",
+          messagingSenderId: "473627611221"
+        };
+        firebase.initializeApp(config);
+
+        function signin(){ // log-in
+            var firebaseRef=firebase.database().ref("User");
+            firebaseRef.once('value').then(function(snapshot) {
+              var check=0;
+              snapshot.forEach(function(childSnapshot) {
+              var childKey = childSnapshot.key;
+              var childData = childSnapshot.val();
+              if( (childData.username==document.getElementById("username").value || childData.email==document.getElementById("username").value ) && childData.passwords==document.getElementById("passwords").value)
+              {
+                document.cookie = "username" + "=" + childData.username+"; path=/";
+                document.getElementById("loginstatus").innerHTML="<a class='nav-link disabled' style='margin:auto; text-align:center;' href='#' onclick='block();' id='status'>"+childData.username+"</a>";
+                getimage(childData.username);
+                document.getElementById('id01').style.display='none';
+                document.getElementById("logoutstatus").innerHTML="<button class='nav-link btn' style='margin:auto;' onclick='logout();'>ออกจากระบบ</button>";
+                check=1;
+              }
+            });
+              if(check==0)
+              {
+                document.getElementById("SigninError").innerHTML="เข้าสู่ระบบไม่สำเร็จ ชื่อผู้ใช้หรือรหัสผ่านผิดพลาด";
+              }
+              document.getElementById("username").value="";
+              document.getElementById("passwords").value="";
+          });
+         
+        }
+
+        var username=getCookie("username"); // cookie check log-in status
+        if(username!="")
+        {
+          getimage(username)
+          document.getElementById("loginstatus").innerHTML="<a class='nav-link disabled' href='#' onclick='block();' id='status' style='margin:auto; text-align:center;'>"+username+"</a>";
+          document.getElementById("logoutstatus").innerHTML="<button class='nav-link btn' onclick='logout();' style='margin:auto;'>ออกจากระบบ</button>";
+        }
+       
+        function getCookie(cname) {
+          var name = cname + "=";
+          var ca = document.cookie.split(';');
+          for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+              c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+              return c.substring(name.length, c.length);
+            }
+          }
+          return "";
+        
+        }
+
+        var firebaseRef=firebase.database().ref("card");
+        var categoriescount=0,cardcount=1;
+        var text="<div class='row'>";
+        var topvideo=new Array();
+        var topimage=new Array();
+        var topname=new Array();
+        var topviews=new Array();
+        var categories=new Array();
+        var categoriesnumber=new Array();
+        var cardpicture = new Array();
+        var cardname=new Array();
+        var cardcategories=new Array();
+        var tags=new Array();
+        var tagsnumber=new Array();
+        var tagscount=0;
+        var cardtags=new Array();
+        var searchcount=0;
+        var cardsearchcategories = new Array();
+        var cardsearchtags = new Array();
+        var cardsearchnumber=new Array();
+        
+        firebaseRef.once('value',function(dataSnapshot){
+          dataSnapshot.forEach(function(childSnapshot) {
+            var childKey = childSnapshot.key;
+            var childData = childSnapshot.val();
+            cardcategories.push(childData.Categories);
+            cardtags.push(childData.Tags);
+            for(var i=0;i<SearchArray.length;i++)
+            {
+              if(childData.Cardname.search(SearchArray[i])!=-1)
+              {
+                searchcount++;
+              }
+            }
+            if(searchcount>0)
+            {
+                searchcount=0;
+                /*push data start*/
+                cardsearchcategories.push(childData.Categories);
+                cardsearchtags.push(childData.Tags);
+                cardpicture.push(childData.PictureLocation);
+                cardname.push(childData.Cardname);
+                cardsearchnumber.push(parseInt(childData.Cardnumber));
+                /*push data end*/
+            }
+            /*Tags Count Start*/
+            for(var x in childData.Tags)
+            {
+                for(var j=0;j<tags.length;j++)
+                {
+                  if(x==tags[j])
+                  {
+                      tagsnumber[j]++;
+                      tagscount=1;
+                  }
+                }
+                if(tagscount==0)
+                {
+                  tags.push(x);
+                  tagsnumber.push(1);
+                }
+                tagscount=0;
+            }
+            /*Tags Count End*/
+            
+            /*Category Count Start*/
+            for(var x in childData.Categories)
+            {
+                for(var j=0;j<categories.length;j++)
+                {
+                  if(x==categories[j])
+                  {
+                    categoriesnumber[j]++;
+                    categoriescount=1;
+                  }
+                }
+                if(categoriescount==0)
+                {
+                  categories.push(x);
+                  categoriesnumber.push(1);
+                }
+                categoriescount=0;
+            }
+            /*Category Count End*/
+          
+            /*TopVideo Setup Start*/
+            topvideo[cardcount]="/watch/"+cardcount;
+            topimage[cardcount]=childData.PictureLocation;
+            topname[cardcount]=childData.Cardname;
+            topviews[cardcount]=childData.Views;
+            cardcount++;
+            /*TopVideo Setup End*/
+          });
+         
+          var countcard=0;
+          /*Start write*/
+          for(var i=0;i<cardpicture.length;i++)
+          {
+            if(countcard<12)
+            {
+              text+="<div class='col-lg-3 col-md-4 col-sm-6 col-12' >";
+              text+="<div class='card' style='margin-top: 5%; height:95%;'>";
+              text+="<img src='"+ cardpicture[cardpicture.length-1-i]+"' class='card-img-top cardimg' style='width:80%;  height:151px; margin-top:5%; '>";
+              text+="<div class='card-body'>";
+              text+="<p style='font-weight: bold;' class='card-title'>"+cardname[cardpicture.length-1-i]+"</p>";
+              var tagsname="showtags"+countcard;
+              text+="<p id='"+tagsname+"'></p>";
+              var name="showcategories"+countcard;
+              text+="<p id='"+name+"'></p>";
+              text+="<a href='/watch/";
+              text+=cardsearchnumber[cardpicture.length-i-1];
+              text+="' class='btn btn-outline-primary' style='width:100%;'>watch video</a>";
+              text+="</div></div></div>";
+            }
+            countcard++;
+          }
+          countcard=0;
+          text+="</div>";
+          document.getElementById("card").innerHTML = text;
+          for(var i=0;i<cardpicture.length;i++)
+          {
+            if(countcard<12)
+            {
+              var name="showcategories"+countcard;
+              getcategoriesnum(cardsearchcategories[cardpicture.length-1-i],name);
+              var tagsname="showtags"+countcard;
+              gettagsnum( cardsearchtags[cardpicture.length-1-i],tagsname);
+              countcard++;
+            }
+          }
+          /*End Write*/
+          
+          /*Start Settopvideo*/
+          for(var j=1;j<cardcount;j++)
+          {
+            for(var k=j+1;k<cardcount;k++)
+            {
+              if(parseInt(topviews[k])>parseInt(topviews[j]))
+              {
+                var tempvideo=topvideo[k];
+                var tempimage=topimage[k];
+                var tempname=topname[k];
+                var tempviews=topviews[k];
+            
+                topvideo[k]=topvideo[j];
+                topimage[k]=topimage[j];
+                topname[k]=topname[j];
+                topviews[k]=topviews[j];
+           
+                topvideo[j]=tempvideo;
+                topimage[j]=tempimage;
+                topname[j]=tempname;
+                topviews[j]=tempviews;
+              }
+            }
+          }
+        
+          settopvideo(topvideo,topimage,topname,topviews,cardcount);
+          /*End Settopvideo*/
+          setpagecontrol(cardpicture.length);
+        });
+
+        function logout(){
+          document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+          document.getElementById("pic_usr").innerHTML="";
+          document.getElementById("logoutstatus").innerHTML="";
+          document.getElementById("loginstatus").innerHTML="<button class='nav-link btn' onclick='block();' id='status' style='text-align: center; margin:auto;'>"+"เข้าสู่ระบบ"+"</button>";
+        }
+
+        function getimage(username){
+          var check=0;
+          var storageRef=firebase.storage().ref('UserImage');
+            storageRef.child(username).getDownloadURL().then(function(url) {
+              document.getElementById("pic_usr").innerHTML="<img style='margin:auto;' onclick='UpdateProfile();' class='userimage' src='"+url+"'>"; 
+            }).catch(function(error) {
+              document.getElementById("pic_usr").innerHTML="<a href='https://www.youtube.com/watch?v=tMQiuB8t5qI'><img class='userimage' src='"+"https://firebasestorage.googleapis.com/v0/b/realtimecomment-374f5.appspot.com/o/UserImage%2Fnopictureuser.png?alt=media&token=eda77f88-6bc8-43e6-8fb5-ab3fee0fef62"+"'></a>"; 
+            });
+        }
+
+        function UpdateProfile(){
+          document.getElementById("ProfilePicture").style.display="block";
+        }
+
+        function settopvideo(video,image,name,views,maxsize){
+          var i=1,k=1;
+       
+          for(var j=1;j<maxsize;j++)
+          {
+            var text="<a href='"+video[j]+"'><img src='"+image[j]+"' style='width:100% ;  height:233px; margin: auto; display: block;'></a>";
+            var id="top"+i;
+            if(i<=9)
+            document.getElementById(id).innerHTML=text;
+            i++;
+            if(k<4)
+            {
+              var textt="<a href='"+video[k]+"'><img  src='"+image[k]+"' style='width:80% ;  height:233px; margin-left: 10%; display: block;'></a>";
+              var idd="top_three"+k;
+              document.getElementById(idd).innerHTML=textt;
+              k++;
+            }
+            if(j==maxsize-1 && i<9)
+            {
+              j=0;
+            }
+          
+          }
+        }
+        
+        function getcategoriesnum(cardcategories,name){
+          var text="<span style='font-weight: bold;'>Categories : </span>";
+          for(var x in cardcategories)
+          {
+            for(var i=0;i<categories.length;i++)
+            {
+              if(x==categories[i])
+              {
+                text+="<button type='button' class='btn btn-primary' style='padding:0px 5px; margin-left:5px; margin-top:5px;'>"+
+                categories[i]+
+                "<span style='margin-left:5px;' class='badge badge-light'>"+categoriesnumber[i]+"</span>"+
+                "<span class='sr-only'>unread messages</span></button>";
+              }
+            }
+          }
+          document.getElementById(name).innerHTML=text;
+        }
+
+        function gettagsnum(cardtags,tagsname){
+          var text="<span style='font-weight: bold;'>Tags : </span>";
+          for(var x in cardtags)
+          {
+            for(var i=0;i<tags.length;i++)
+            {
+              if(x==tags[i])
+              {
+                text+="<a href='/tags/"+tags[i]+"'><button type='button' class='btn btn-primary' style='padding:0px 5px; margin-left:5px; margin-top:5px;'>"+
+                tags[i]+
+                "<span style='margin-left:5px;' class='badge badge-light'>"+tagsnumber[i]+"</span>"+
+                "<span class='sr-only'>unread messages</span></button></a>";
+              }
+            }
+          }
+          document.getElementById(tagsname).innerHTML=text;
+        }
+
+        function setpagecontrol(n){
+
+            var pagecontrol=document.getElementById("pagecontrol");
+            var text="";
+            var pagecontrol_count;
+
+            if(n%12!=0)
+            {
+              pagecontrol_count=parseInt((n/12))+1;
+            }
+
+            var pagecount=0;
+
+            for(var i=1;i<=pagecontrol_count;i++)
+            {
+              if(pagecount<5 && pagecontrol_count>1)
+              {
+                if(i==1)
+                {
+                    text+="<li class='page-item active'><a class='page-link' href='/search/";//+"/page/"+i+"'>"+i+"</a></li>";
+                    for(var j=0;j<SearchArray.length;j++)
+                    {
+                      text+=SearchArray[j];
+                      if(j!=(SearchArray.length-1))
+                      {
+                        text+="+";
+                      }
+                    }
+                    text+="/page"+i+"'>"+i+"</a></li>";
+                }
+                else {
+                    text+="<li class='page-item'><a class='page-link' href='/search/";//+"/page/"+i+"'>"+i+"</a></li>";
+                    for(var j=0;j<SearchArray.length;j++)
+                    {
+                      text+=SearchArray[j];
+                      if(j!=(SearchArray.length-1))
+                      {
+                        text+="+";
+                      }
+                    }
+                    text+="/page"+i+"'>"+i+"</a></li>";
+                }
+              }
+              pagecount++;
+            }
+            if(pagecontrol_count>1)
+            {
+              text+="<li class='page-item'><a class='page-link' href='/search/";//+"/page"+2+"'>Next</a></li>";
+              for(var j=0;j<SearchArray.length;j++)
+              {
+                text+=SearchArray[j];
+                if(j!=(SearchArray.length-1))
+                {
+                  text+="+";
+                }
+              }
+              text+="/page"+2+"'>Next</a></li>";
+            }
+            pagecontrol.innerHTML=text;
+          }
+         
+          document.getElementById("thissearch").innerHTML="<a href='"+ window.location.href+"'>Search >> "+x+"</a>";
+    </script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

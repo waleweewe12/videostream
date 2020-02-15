@@ -1,0 +1,20 @@
+https://realtimecomment-374f5.firebaseapp.com
+
+firebase serve --only functions,hosting
+
+PictureLocation
+VideoLocation
+Cardname
+Cardnumber
+Comment
+Description
+Views
+
+<div style='float: left; width:100%;'>
+                        <div style='float:left; width:100%;'>
+                            <span id='cp'></span>
+                            <textarea id='comment' rows='3'></textarea>
+                            <button class='btn btn-primary' id='send' style='float:right; margin-right:10%;' onclick='add()'>แสดงความคิดเห็น</button>
+                        </div>
+                      <hr style='float:left; width:100%;'>
+                    </div>
