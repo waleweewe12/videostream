@@ -9,22 +9,22 @@ app.engine('hbs',engines.handlebars);
 app.set('views','./views');
 app.set('view engine','hbs');
 
-app.get('/',function(req,res){
+app.get('/',(req,res)=>{
     res.set('Cache-Control','public,max-age=300,s-maxage=600');
     res.render('index');
 });
 
-app.get('/watch/:v',function(req,res){ //  render ไฟล์ที่ req มา
+app.get('/watch/:v',(req,res)=>{ //  render ไฟล์ที่ req มา
     res.set('Cache-Control','public,max-age=300,s-maxage=600');
     res.render('watch');
 });
 
-app.get('/admin',function(req,res){
+app.get('/admin',(req,res)=>{
     res.set('Cache-Control','public,max-age=300,s-maxage=600');
     res.render('admin');
 });
 
-app.get('/page/:p',function(req,res){
+app.get('/page/:p',(req,res)=>{
     res.set('Cache-Control','public,max-age=300,s-maxage=600');
     var data={
         page:req.params.p
@@ -32,7 +32,7 @@ app.get('/page/:p',function(req,res){
     res.render('page',data);
 });
 
-app.get('/tags/:v',function(req,res){
+app.get('/tags/:v',(req,res)=>{
     res.set('Cache-Control','public,max-age=300,s-maxage=600');
     var data={
         tags:req.params.v
@@ -40,7 +40,7 @@ app.get('/tags/:v',function(req,res){
     res.render('tags',data);
 });
 
-app.get('/tags/:a/page:b',function(req,res){
+app.get('/tags/:a/page:b',(req,res)=>{
     res.set('Cache-Control','public,max-age=300,s-maxage=600');
     var data={
         tags:req.params.a,
@@ -49,7 +49,7 @@ app.get('/tags/:a/page:b',function(req,res){
     res.render('tagspage',data);
 });
 
-app.get('/search',function(req,res){
+app.get('/search',(req,res)=>{
     res.set('Cache-Control','public,max-age=300,s-maxage=600');
     var data={
         searchwords:req.query.searchwords
@@ -57,7 +57,7 @@ app.get('/search',function(req,res){
     res.render('search',data);
 });
 
-app.get('/search/:a/page:b',function(req,res){
+app.get('/search/:a/page:b',(req,res)=>{
     res.set('Cache-Control','public,max-age=300,s-maxage=600');
     var data={
         searchwords:req.params.a,
@@ -66,7 +66,7 @@ app.get('/search/:a/page:b',function(req,res){
     res.render('searchpage',data);
 });
 
-app.get('/registration',function(req,res){
+app.get('/registration',(req,res)=>{
     res.render('registration');
 });
 
